@@ -222,7 +222,6 @@ class Stats {
   }
 
   void FinishedSingleOp() {
-    COZ_BEGIN("FinishedSingleOp");
     if (FLAGS_histogram) {
       double now = g_env->NowMicros();
       double micros = now - last_op_finish_;
@@ -246,7 +245,6 @@ class Stats {
       fprintf(stderr, "... finished %d ops%30s\r", done_, "");
       fflush(stderr);
     }
-    COZ_END("FinishedSingleOp");
   }
 
   void AddBytes(int64_t n) {
@@ -673,8 +671,7 @@ class Benchmark {
       ok = port::Snappy_Compress(input.data(), input.size(), &compressed);
       produced += compressed.size();
       bytes += input.size();
-      COZ_PROGRESS_NAMED("SnappyCompress");
-      
+
       thread->stats.FinishedSingleOp();
     }
 
@@ -702,7 +699,6 @@ class Benchmark {
       bytes += input.size();
 
       thread->stats.FinishedSingleOp();
-      COZ_PROGRESS_NAMED("SnappyUncompress");
 
     }
     delete[] uncompressed;
@@ -757,7 +753,6 @@ class Benchmark {
   }
 
   void DoWrite(ThreadState* thread, bool seq) {
-    COZ_BEGIN("DoWrite");
 
     if (num_ != FLAGS_num) {
       char msg[100];
@@ -787,7 +782,6 @@ class Benchmark {
       }
     }
     thread->stats.AddBytes(bytes);
-    COZ_END("DoWrite");
 
   }
 
@@ -818,7 +812,6 @@ class Benchmark {
   }
 
   void ReadRandom(ThreadState* thread) {
-    COZ_BEGIN("ReadRandom");
     ReadOptions options;
     std::string value;
     int found = 0;
@@ -834,7 +827,6 @@ class Benchmark {
     char msg[100];
     snprintf(msg, sizeof(msg), "(%d of %d found)", found, num_);
     thread->stats.AddMessage(msg);
-    COZ_END("ReadRandom");
   }
 
   void ReadMissing(ThreadState* thread) {

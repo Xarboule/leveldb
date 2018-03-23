@@ -29,7 +29,7 @@ class LEVELDB_EXPORT Slice {
   Slice() : data_(""), size_(0) { }
 
   // Create a slice that refers to d[0,n-1].
-  Slice(const char* d, size_t n) : data_(d), size_(n) { }
+  Slice(const char* d, size_t n) : data_(d), size_(n) { } //COZ -> Bottleneck ?
 
   // Create a slice that refers to the contents of "s"
   Slice(const std::string& s) : data_(s.data()), size_(s.size()) { }
@@ -45,7 +45,7 @@ class LEVELDB_EXPORT Slice {
   const char* data() const { return data_; }
 
   // Return the length (in bytes) of the referenced data
-  size_t size() const { return size_; }
+  size_t size() const { return size_; } //COZ -> Bottleneck ?
 
   // Return true iff the length of the referenced data is zero
   bool empty() const { return size_ == 0; }

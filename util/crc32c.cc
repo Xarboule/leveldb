@@ -343,7 +343,7 @@ uint32_t Extend(uint32_t crc, const char* buf, size_t size) {
 
     // Process one 16-byte swath at a time.
     while ((e - p) >= 16) {
-      STEP16;
+      STEP16; //COZ -> Bottleneck ?
     }
 
     // Advance one word at a time as far as possible.
