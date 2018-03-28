@@ -26,7 +26,7 @@ class SCOPED_LOCKABLE MutexLock {
       : mu_(mu)  {
     this->mu_->Lock();
   }
-  ~MutexLock() UNLOCK_FUNCTION() { this->mu_->Unlock(); }
+  ~MutexLock() UNLOCK_FUNCTION() { this->mu_->Unlock(); } //COZ - Bottleneck (2 Benchmarks)
 
  private:
   port::Mutex *const mu_;
