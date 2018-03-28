@@ -774,13 +774,14 @@ class Benchmark {
         batch.Put(key, gen.Generate(value_size_));    //COZ - Bottleneck ??
         bytes += value_size_ + strlen(key);
         thread->stats.FinishedSingleOp();
+        COZ_PROGRESS;
+
       }
       s = db_->Write(write_options_, &batch);
       if (!s.ok()) {
         fprintf(stderr, "put error: %s\n", s.ToString().c_str());
         exit(1);
       }
-      COZ_PROGRESS;
     }
     thread->stats.AddBytes(bytes);
 
