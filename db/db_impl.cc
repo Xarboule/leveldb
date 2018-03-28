@@ -1251,6 +1251,8 @@ Status DBImpl::Write(const WriteOptions& options, WriteBatch* my_batch) {
     if (updates == tmp_batch_) tmp_batch_->Clear();
 
     versions_->SetLastSequence(last_sequence);
+    COZ_PROGRESS;
+
   }
 
   while (true) {
@@ -1268,7 +1270,6 @@ Status DBImpl::Write(const WriteOptions& options, WriteBatch* my_batch) {
   if (!writers_.empty()) {
     writers_.front()->cv.Signal();
   }
-  COZ_PROGRESS;
   return status;
 }
 
