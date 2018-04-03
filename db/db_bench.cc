@@ -781,7 +781,7 @@ class Benchmark {
         fprintf(stderr, "put error: %s\n", s.ToString().c_str());
         exit(1);
       }
-      COZ_PROGRESS;
+      //COZ_PROGRESS;
       
     }
     thread->stats.AddBytes(bytes);
